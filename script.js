@@ -4,14 +4,18 @@ const questionText = document.getElementById('questionText');
 const displayGif = document.getElementById('displayGif');
 
 // Funzione per far scappare il tasto "No"
-noBtn.addEventListener('mouseover', () => {
-    // Calcola posizioni casuali sullo schermo
+const moveNoButton = (e) => {
+    if (e && e.type === 'touchstart') e.preventDefault(); // evita che il touch scateni anche il click
     const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
     const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-    
     noBtn.style.left = `${x}px`;
     noBtn.style.top = `${y}px`;
-});
+};
+
+// registra per mouse, touch e pointer
+noBtn.addEventListener('mouseover', moveNoButton);
+noBtn.addEventListener('pointerenter', moveNoButton);
+noBtn.addEventListener('touchstart', moveNoButton, { passive: false });
 
 // Cosa succede quando clicca "Sì"
 yesBtn.addEventListener('click', () => {
