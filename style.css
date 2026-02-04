@@ -1,0 +1,56 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #ff00ac; /* Sfondo rosa/ fucsia */
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    background: white;
+    padding: 50px; /* aumentato per rendere la parte bianca più grande */
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    width: min(90vw, 900px); /* larghezza fluida con un massimo */
+    max-width: 900px;
+}
+  
+h1 {
+    color: #d63384;
+}
+
+.gif-container img {
+    width: 250px; /* leggermente più grande */
+    margin: 20px 0;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 25px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#yesBtn {
+    background-color: #ff00ac;
+    color: white;
+}
+
+#noBtn {
+    background-color: #6c757d;
+    color: white;
+    position: absolute; /* Fondamentale per farlo muovere */
+}
