@@ -47,10 +47,16 @@ button {
 #yesBtn {
     background-color: #ff00ac;
     color: white;
+    transition: transform 0.2s ease;
 }
 
 #noBtn {
     background-color: #6c757d;
     color: white;
     position: absolute; /* Fondamentale per farlo muovere */
+    transition: transform 0.2s ease;
+}
+
+#noBtn:hover {
+    transform: scale(1.3);
 }
