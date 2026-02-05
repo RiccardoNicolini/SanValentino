@@ -20,11 +20,11 @@ const enlargeButton = () => {
 };
 
 // Funzione per ingrandire il tasto Sì quando il mouse si avvicina al No
-document.addEventListener('mousemove', (e) => {
+const checkDistance = (clientX, clientY) => {
     const noBtnRect = noBtn.getBoundingClientRect();
     const distance = Math.sqrt(
-        Math.pow(e.clientX - (noBtnRect.left + noBtnRect.width / 2), 2) +
-        Math.pow(e.clientY - (noBtnRect.top + noBtnRect.height / 2), 2)
+        Math.pow(clientX - (noBtnRect.left + noBtnRect.width / 2), 2) +
+        Math.pow(clientY - (noBtnRect.top + noBtnRect.height / 2), 2)
     );
     
     // Se il cursore è a meno di 200px dal tasto No, aumenta la scala del tasto Sì
@@ -32,7 +32,19 @@ document.addEventListener('mousemove', (e) => {
         yesBtnScale += 0.01; // Aumenta la dimensione progressivamente
         yesBtn.style.transform = `scale(${yesBtnScale})`;
     }
+};
+
+// Evento per mouse
+document.addEventListener('mousemove', (e) => {
+    checkDistance(e.clientX, e.clientY);
 });
+
+// Evento per touch (telefono)
+document.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0) {
+        checkDistance(e.touches[0].clientX, e.touches[0].clientY);
+    }
+}, { passive: true });
 
 // registra per mouse, touch e pointer
 noBtn.addEventListener('mouseover', () => {
