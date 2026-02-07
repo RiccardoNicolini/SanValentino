@@ -4,9 +4,12 @@ const questionText = document.getElementById('questionText');
 const displayGif = document.getElementById('displayGif');
 
 let yesBtnScale = 1; // Traccia la dimensione del tasto Sì
+let hasClicked = false; // Flag per sapere se è stato cliccato il sì
 
 // Funzione per far scappare il tasto "No"
 const moveNoButton = (e) => {
+    if (hasClicked) return; // Non fare niente se è già stato cliccato
+    
     if (e && e.type === 'touchstart') e.preventDefault(); // evita che il touch scateni anche il click
     const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
     const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
@@ -25,6 +28,8 @@ const enlargeButton = () => {
 
 // Funzione per ingrandire il tasto Sì quando il mouse si avvicina al No
 const checkDistance = (clientX, clientY) => {
+    if (hasClicked) return; // Non fare niente se è già stato cliccato
+    
     const noBtnRect = noBtn.getBoundingClientRect();
     const distance = Math.sqrt(
         Math.pow(clientX - (noBtnRect.left + noBtnRect.width / 2), 2) +
@@ -63,12 +68,14 @@ noBtn.addEventListener('touchstart', (e) => {
     enlargeButton();
     moveNoButton(e);
 }, { passive: false });
-
-// Cosa succede quando clicca "Sì"
-yesBtn.addEventListener('click', () => {
+const handleYesClick = () => {
+    hasClicked = true; // Imposta il flag
     questionText.innerHTML = "SPAEVO CHE ERA UN SI!!";
     displayGif.src = "https://i.pinimg.com/originals/88/14/9b/88149b0400750578f4d07d9bc3fb0fee.gif"; // GIF felice
     document.getElementById('waitingText').style.display = 'block'; // Mostra il testo "ti aspetto"
     noBtn.style.display = 'none'; // Nasconde il tasto No
     yesBtn.style.display = 'none'; // Nasconde anche il tasto Sì
-});
+};
+
+yesBtn.addEventListener('click', handleYesClick);
+yesBtn.addEventListener('touchend', handleYesClick);
