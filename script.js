@@ -64,8 +64,8 @@ noBtn.addEventListener('touchstart', (e) => {
 let yesClickCount = 0;
 const maxClicks = 3; // Numero di click prima di confermare
 
-// Cosa succede quando clicca "Sì"
-yesBtn.addEventListener('click', () => {
+// Funzione comune per gestire il click/tap sul tasto Sì
+const handleYesButtonPress = () => {
     yesClickCount++;
     
     // Aumenta la scala del tasto ad ogni click
@@ -80,4 +80,13 @@ yesBtn.addEventListener('click', () => {
         noBtn.style.display = 'none'; // Nasconde il tasto No
         yesBtn.style.display = 'none'; // Nasconde anche il tasto Sì
     }
-});
+};
+
+// Click per versione web
+yesBtn.addEventListener('click', handleYesButtonPress);
+
+// Touch per versione mobile
+yesBtn.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    handleYesButtonPress();
+}, { passive: false });
