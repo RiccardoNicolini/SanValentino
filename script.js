@@ -60,11 +60,24 @@ noBtn.addEventListener('touchstart', (e) => {
     moveNoButton(e);
 }, { passive: false });
 
+// Contatore per i click sul tasto Sì
+let yesClickCount = 0;
+const maxClicks = 3; // Numero di click prima di confermare
+
 // Cosa succede quando clicca "Sì"
 yesBtn.addEventListener('click', () => {
-    questionText.innerHTML = "SPAEVO CHE ERA UN SI!!";
-    displayGif.src = "https://i.pinimg.com/originals/88/14/9b/88149b0400750578f4d07d9bc3fb0fee.gif"; // GIF felice
-    document.getElementById('waitingText').style.display = 'block'; // Mostra il testo "ti aspetto"
-    noBtn.style.display = 'none'; // Nasconde il tasto No
-    yesBtn.style.display = 'none'; // Nasconde anche il tasto Sì
+    yesClickCount++;
+    
+    // Aumenta la scala del tasto ad ogni click
+    yesBtnScale += 0.3;
+    yesBtn.style.transform = `scale(${yesBtnScale})`;
+    
+    // Se raggiunge il numero massimo di click, mostra il messaggio finale
+    if (yesClickCount >= maxClicks) {
+        questionText.innerHTML = "SPAEVO CHE ERA UN SI!!";
+        displayGif.src = "https://i.pinimg.com/originals/88/14/9b/88149b0400750578f4d07d9bc3fb0fee.gif"; // GIF felice
+        document.getElementById('waitingText').style.display = 'block'; // Mostra il testo "ti aspetto"
+        noBtn.style.display = 'none'; // Nasconde il tasto No
+        yesBtn.style.display = 'none'; // Nasconde anche il tasto Sì
+    }
 });
