@@ -12,6 +12,10 @@ const moveNoButton = (e) => {
     const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
     noBtn.style.left = `${x}px`;
     noBtn.style.top = `${y}px`;
+    
+    // Ingrandisci il tasto Sì quando il No si muove
+    yesBtnScale += 0.1;
+    yesBtn.style.transform = `scale(${yesBtnScale})`;
 };
 
 // Funzione per aumentare la dimensione del tasto
@@ -60,33 +64,11 @@ noBtn.addEventListener('touchstart', (e) => {
     moveNoButton(e);
 }, { passive: false });
 
-// Contatore per i click sul tasto Sì
-let yesClickCount = 0;
-const maxClicks = 3; // Numero di click prima di confermare
-
-// Funzione comune per gestire il click/tap sul tasto Sì
-const handleYesButtonPress = () => {
-    yesClickCount++;
-    
-    // Aumenta la scala del tasto ad ogni click
-    yesBtnScale += 0.3;
-    yesBtn.style.transform = `scale(${yesBtnScale})`;
-    
-    // Se raggiunge il numero massimo di click, mostra il messaggio finale
-    if (yesClickCount >= maxClicks) {
-        questionText.innerHTML = "SPAEVO CHE ERA UN SI!!";
-        displayGif.src = "https://i.pinimg.com/originals/88/14/9b/88149b0400750578f4d07d9bc3fb0fee.gif"; // GIF felice
-        document.getElementById('waitingText').style.display = 'block'; // Mostra il testo "ti aspetto"
-        noBtn.style.display = 'none'; // Nasconde il tasto No
-        yesBtn.style.display = 'none'; // Nasconde anche il tasto Sì
-    }
-};
-
-// Click per versione web
-yesBtn.addEventListener('click', handleYesButtonPress);
-
-// Touch per versione mobile
-yesBtn.addEventListener('touchend', (e) => {
-    e.preventDefault();
-    handleYesButtonPress();
-}, { passive: false });
+// Cosa succede quando clicca "Sì"
+yesBtn.addEventListener('click', () => {
+    questionText.innerHTML = "SPAEVO CHE ERA UN SI!!";
+    displayGif.src = "https://i.pinimg.com/originals/88/14/9b/88149b0400750578f4d07d9bc3fb0fee.gif"; // GIF felice
+    document.getElementById('waitingText').style.display = 'block'; // Mostra il testo "ti aspetto"
+    noBtn.style.display = 'none'; // Nasconde il tasto No
+    yesBtn.style.display = 'none'; // Nasconde anche il tasto Sì
+});
